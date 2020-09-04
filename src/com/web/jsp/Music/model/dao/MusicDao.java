@@ -267,6 +267,8 @@ public ArrayList<Music> musicChart(Connection con) {
 			if(rset.next()) {
 				m = new Music();
 				
+				// 오우 싸발적이고
+				m.setmNo(rset.getString("music_No"));
 				m.setMusicNm(title);
 				m.setMusicArtist(rset.getString("music_Artist"));
 				m.setMusicGenre(rset.getString("music_Genre"));
