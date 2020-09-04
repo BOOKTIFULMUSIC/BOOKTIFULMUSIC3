@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.web.jsp.Review.model.vo.musicReview;
+import com.web.jsp.Review.model.vo.MusicReview;
 import static com.web.jsp.common.JDBCTemplate.*;
 
 public class ReviewDao {
@@ -25,72 +25,62 @@ public class ReviewDao {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-	}	
-	
-
-	public ArrayList<musicReview> selectList(Connection con, int musicNo) {
-		
-		ArrayList<musicReview> mlist = null;
+	}
+	public ArrayList<MusicReview> selectList(Connection con, String mno) {
+		ArrayList<MusicReview> rlist = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("reviewList");
-		
-		mlist = new ArrayList<musicReview>();
+		String sql = prop.getProperty("selectList");
 		
 		try {
-			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(2, "userId");
-			
+			pstmt.setString(1, mno);
 			rset = pstmt.executeQuery();
 			
+			rlist = new ArrayList<MusicReview>();
+			
 			while(rset.next()) {
-				musicReview mr = new musicReview();
-				mr.setmRno(rset.getInt("M_RNO"));
-				mr.setUserId("USERID");
-				mr.setMusicNo(rset.getInt("MUSIC_NO"));
+				MusicReview mr = new MusicReview();
+				
+				mr.setMusicNo(mno);
+				mr.setmRno(rset.getString("M_RNO"));
+				mr.setUserId(rset.getString("USERID"));
 				mr.setMusicReview(rset.getString("MUSIC_REVIEW"));
-				mr.setmDate(rset.getDate("mrDate"));
-				mlist.add(mr);
+				mr.setMrDate(rset.getDate("MRDATE"));
+				
+				rlist.add(mr);
 			}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			
 			close(rset);
 			close(pstmt);
 		}
-		
-
-		return mlist;
+		return rlist;
 	}
-
-	public int insertReview(Connection con, musicReview mr) {
-		
+	public int insertReview(Connection con, MusicReview mr) {
 		int result = 0;
 		PreparedStatement pstmt = null;
+		
 		String sql = prop.getProperty("insertReview");
 		
 		try {
-			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mr.getmRno());
-			pstmt.setString(2, mr.getUserId());
-			pstmt.setInt(3, mr.getMusicNo());
-			pstmt.setString(4, mr.getMusicReview());
-			
+			pstmt.setString(1, mr.getUserId());
+			pstmt.setString(2, mr.getMusicNo());
+			pstmt.setString(3, mr.getMusicReview());
+
 			result = pstmt.executeUpdate();
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		
-		
 		return result;
 	}
 
+	
+	
 }

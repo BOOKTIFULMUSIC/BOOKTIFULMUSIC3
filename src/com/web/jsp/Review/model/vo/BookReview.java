@@ -3,7 +3,7 @@ package com.web.jsp.Review.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class bookReview implements Serializable{
+public class BookReview implements Serializable{
 
 	/**
 	 * 
@@ -16,16 +16,16 @@ public class bookReview implements Serializable{
 	private String bookReview;    // 북리뷰
 	private Date brDate;           // 북리뷰 작성일
 	
-	public bookReview() {}
+	public BookReview() {}
 
-	public bookReview(String userId, int bookNo, String bookReview) {
+	public BookReview(String userId, int bookNo, String bookReview) {
 		super();
 		this.userId = userId;
 		this.bookNo = bookNo;
 		this.bookReview = bookReview;
 	}
 
-	public bookReview(int bRno, String userId, int bookNo, String bookReview, Date brDate) {
+	public BookReview(int bRno, String userId, int bookNo, String bookReview, Date brDate) {
 		super();
 		this.bRno = bRno;
 		this.userId = userId;

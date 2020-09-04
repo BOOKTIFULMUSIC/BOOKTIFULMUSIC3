@@ -1,14 +1,18 @@
-package com.web.jsp.Review.Controller;
+package com.web.jsp.Review.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.jsp.Member.exception.MemberException;
+import com.web.jsp.Music.model.vo.Music;
 import com.web.jsp.Review.model.service.ReviewService;
-import com.web.jsp.Review.model.vo.musicReview;
+import com.web.jsp.Review.model.vo.MusicReview;
 
 /**
  * Servlet implementation class ReviewInsertServlet
@@ -29,23 +33,28 @@ public class mReviewInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
 		
+		String mno = request.getParameter("mno");
+		String userId = request.getParameter("writer");
+		String review = request.getParameter("content");
 		
-		int mRno = Integer.parseInt(request.getParameter("mRno"));
-		String userId = request.getParameter("userId");
-		int musicNo = Integer.parseInt(request.getParameter("musicNo"));
-		String musicReview=request.getParameter("musicReview");
-		 
+		MusicReview mr = new MusicReview(mno,userId,review);
+		ReviewService rs = new ReviewService();
+		ArrayList<MusicReview> rlist = new ArrayList<>();
+		rlist = rs.selectList(mno);
 		
-		musicReview mr = new musicReview(userId, musicNo, musicReview);
-		int result = new ReviewService().insertReview(mr);
+		System.out.println("리뷰리스트" + rlist);
+		int result = rs.insertReview(mr);
 		
-		if(result > 0) {
-			response.sendRedirect("selectOne.bo?bno="+musicNo);
+		if(result>0) {
+			response.sendRedirect("views/music/MusicDetail.jsp");
+			request.setAttribute("rlist", rlist);
 		}else {
-			request.setAttribute("msg", "댓글 작성 실패!");
+			request.setAttribute("msg", "리뷰 작성에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**
