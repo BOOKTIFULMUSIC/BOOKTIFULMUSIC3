@@ -10,7 +10,8 @@ public class Music implements Serializable{
 	 */
 	private static final long serialVersionUID = 929712180808778617L;
 	
-	private int musicNo;             // 뮤직넘버
+	private int musicNo;             // 뮤직 넘버
+	private String mNo;				 // m1,m2,m3....
 	private String musicNm ;         // 뮤직이름
 	private String musicArtist;      // 뮤직아티스트
 	private String musicGenre;       // 뮤직 장르
@@ -19,7 +20,7 @@ public class Music implements Serializable{
 	private String musicImage;       // 뮤직이미지
 	private String musicType;        // 뮤직타입(국내/해외)
 	
-	private String albumImage;       // 앨범이미지
+	private String albumImage;     	 // 앨범이미지
 	private String reviewAlbum;      // 앨범리뷰
 	
 	
@@ -34,6 +35,24 @@ public class Music implements Serializable{
 		this.likeMusic = likeMusic;
 		this.reviewAlbum = reviewAlbum;
 		this.albumImage = albumImage;
+	}
+
+	
+
+
+	public Music(String mNo, String musicNm, String musicArtist, String musicGenre, String relativeAlbumNo,
+			String likeMusic, String musicImage, String musicType, String albumImage, String reviewAlbum) {
+		super();
+		this.mNo = mNo;
+		this.musicNm = musicNm;
+		this.musicArtist = musicArtist;
+		this.musicGenre = musicGenre;
+		this.relativeAlbumNo = relativeAlbumNo;
+		this.likeMusic = likeMusic;
+		this.musicImage = musicImage;
+		this.musicType = musicType;
+		this.albumImage = albumImage;
+		this.reviewAlbum = reviewAlbum;
 	}
 
 
@@ -63,6 +82,18 @@ public class Music implements Serializable{
 
 	public void setMusicNo(int musicNo) {
 		this.musicNo = musicNo;
+	}
+
+
+
+	public String getmNo() {
+		return mNo;
+	}
+
+
+
+	public void setmNo(String mNo) {
+		this.mNo = mNo;
 	}
 
 
@@ -148,22 +179,6 @@ public class Music implements Serializable{
 	public void setMusicType(String musicType) {
 		this.musicType = musicType;
 	}
-	
-	
-	
-
-
-
-	public String getReviewAlbum() {
-		return reviewAlbum;
-	}
-
-
-
-	public void setReviewAlbum(String reviewAlbum) {
-		this.reviewAlbum = reviewAlbum;
-	}
-	
 
 
 
@@ -179,14 +194,27 @@ public class Music implements Serializable{
 
 
 
+	public String getReviewAlbum() {
+		return reviewAlbum;
+	}
+
+
+
+	public void setReviewAlbum(String reviewAlbum) {
+		this.reviewAlbum = reviewAlbum;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Music [musicNo=" + musicNo + ", musicNm=" + musicNm + ", musicArtist=" + musicArtist + ", musicGenre="
-				+ musicGenre + ", relativeAlbumNo=" + relativeAlbumNo + ", likeMusic=" + likeMusic + ", musicImage="
-				+ musicImage + ", musicType=" + musicType + ", albumImage=" + albumImage + ", reviewAlbum="
-				+ reviewAlbum + "]";
+		return "Music [musicNo=" + musicNo + ", mNo=" + mNo + ", musicNm=" + musicNm + ", musicArtist=" + musicArtist
+				+ ", musicGenre=" + musicGenre + ", relativeAlbumNo=" + relativeAlbumNo + ", likeMusic=" + likeMusic
+				+ ", musicImage=" + musicImage + ", musicType=" + musicType + ", albumImage=" + albumImage
+				+ ", reviewAlbum=" + reviewAlbum + "]";
 	}
-	
+
+
 	
 
 

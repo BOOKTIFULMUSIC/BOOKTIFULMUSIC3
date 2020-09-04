@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.web.jsp.Music.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*" import="com.web.jsp.Music.model.vo.*" import="com.web.jsp.Review.model.vo.*" %>
 
-   <% Music mui = (Music)request.getAttribute("Music"); %>
+   <% Music mui = (Music)request.getAttribute("Music");
+   	  ArrayList<MusicReview> rlist = (ArrayList<MusicReview>)request.getAttribute("rlist");
+   %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>MusicDetail</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/m_info.css?"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/m_info.css"/>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
@@ -19,8 +21,7 @@
                 <p id="p1">ALBUM INFORMATION</p>
                 <img src="${pageContext.request.contextPath}/resources/images/music/<%=mui.getMusicImage()%>" id="info_img1">
                 <ul id="m_title">
-                    
-                    
+                	<input type="hidden" id="mno" name="mno" value="<%= mui.getmNo () %>">
                     <li><%=mui.getMusicNm() %></li>
                     <li><%=mui.getMusicArtist() %></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -80,78 +81,14 @@
             <div id="reviews">
                 <p>Reviews</p>
                 <div id="add">
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul> <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>감미롭다,,,</p></b>
-                    </ul>
-                    <ul>
-                        <li><img src="../resource/images/icon/ICON.png"></li>
-                        <li><b>USERID</b><br><p>낄낄</p></li>
-                    </ul>
+                	<% if( rlist != null){ %>
+	                	<% for( MusicReview mr : rlist){ %>
+	                    <ul>
+	                        <li><img src="../resource/images/icon/ICON.png"></li>
+	                        <li><b id="id"><%= mr.getUserId() %></b><br><p id="content"><%= mr.getMusicReview() %></p></b></li>
+	                    </ul>
+	                    <% } %>
+                    <% } %>
                 </div>
                 
                 
@@ -164,7 +101,15 @@
         </div>
         
          <%@ include file="/views/common/footer.jsp" %>
-         
+         <script>
+         	$('#review_btn').click(function(){
+         		var writer = $('#userId').text();
+         		var mno = $('#mno').val();
+         		var content = $('review_text').val();
+         		
+         		location.href="/BOOKTIFULMUSIC/mInsertReview.mo?mno="+mno+"&writer="+writer+"&content="+content;
+         	});
+         </script>
 
 
 </body>
