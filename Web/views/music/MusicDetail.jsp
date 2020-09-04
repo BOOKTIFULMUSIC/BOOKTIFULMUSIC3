@@ -94,7 +94,7 @@
                 
                 <div id="user_review">
                     <img src="../resource/images/icon/ICON.png">
-                    <textarea id="review_text" placeholder="100자내로 리뷰를 작성해주세요." cols="80" rows="5"></textarea>
+                    <textarea id="review_text" placeholder="100자내로 리뷰를 작성해주세요." cols="80" rows="5" onclick="user()"></textarea>
                     <input type="submit" id="review_btn" name="review_btn" value="등록">
                 </div>
             </div>
@@ -102,8 +102,17 @@
         
          <%@ include file="/views/common/footer.jsp" %>
          <script>
+         	function user(){
+         		var userId = $('#userIdchk').text();
+         		console.log(userId);
+         		if(userId == null || userId == ""){
+         			alert("로그인이 필요합니다.");
+         			location.href="/BOOKTIFULMUSIC/views/member/loginForm.jsp";
+         		}
+         	}
+         
          	$('#review_btn').click(function(){
-         		var writer = $('#userId').text();
+         		var writer = $('#userIdchk').text();
          		var mno = $('#mno').val();
          		var content = $('review_text').val();
          		
