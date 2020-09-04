@@ -47,6 +47,7 @@ public ArrayList<Music> musicChart(Connection con) {
 			while(rset.next()) {
 				Music m = new Music();
 				
+				m.setmNo(rset.getString("music_No"));
 				m.setMusicNo(rset.getInt(1));
 				m.setMusicNm(rset.getString("music_Nm"));
 				m.setMusicArtist(rset.getString("music_Artist"));
