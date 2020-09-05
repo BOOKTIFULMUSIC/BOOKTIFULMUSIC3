@@ -1,6 +1,8 @@
 package com.web.jsp.book.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,13 +32,11 @@ public class BookDetailServlet extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      String title= request.getParameter("btitle");
-      System.out.println(title);
+      Long bno = Long.parseLong(request.getParameter("bno"));
       
       BookService bs = new BookService();
       
-      Book b = bs.selectOne(title);
-      
+      HashMap<String,Object> b = bs.selectOne(bno);
       request.setAttribute("b", b);
       request.getRequestDispatcher("views/book/bookDetail.jsp").forward(request, response);
    }   

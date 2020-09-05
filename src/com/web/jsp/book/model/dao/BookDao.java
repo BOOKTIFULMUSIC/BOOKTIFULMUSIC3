@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.web.jsp.book.model.vo.Book;
@@ -291,6 +292,48 @@ public class BookDao {
 	      }
 
 	      return b;
+	   }
+	
+	public HashMap<String,Object> selectBookDetail(Connection con, Long bno) {
+		  HashMap<String, Object> bookMap = null;
+		
+		
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("selectBookDetail");
+
+	      try{
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setLong(1, bno);
+
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()){
+	        	bookMap = new HashMap<String, Object>();
+	        	bookMap.put("BNO", rset.getLong("BNO"));
+	        	bookMap.put("BTITLE", rset.getString("BTITLE"));
+	        	bookMap.put("PUBLISHER", rset.getString("PUBLISHER"));
+	        	bookMap.put("WRITERDATE", rset.getString("WRITERDATE"));
+	        	bookMap.put("BGENRE", rset.getString("BGENRE"));
+	        	bookMap.put("PRICE", rset.getInt("PRICE"));
+	        	bookMap.put("BLIKECOUNT", rset.getInt("BLIKECOUNT"));
+	        	bookMap.put("BREVIEWCOUNT", rset.getInt("BREVIEWCOUNT"));
+	        	bookMap.put("BIMAGE", rset.getString("BIMAGE"));
+	        	bookMap.put("BSTORY", rset.getString("BSTORY"));
+	        	bookMap.put("AUINFO", rset.getString("AUINFO"));
+	        	bookMap.put("AUTHORNAME", rset.getString("AUTHORNAME"));
+	         }
+
+
+	      }catch(SQLException e){
+	         e.printStackTrace();
+	      }finally{
+	         close(rset);
+	         close(pstmt);
+	      }
+
+	      return bookMap;
 	   }
 
 }

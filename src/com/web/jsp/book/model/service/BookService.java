@@ -3,6 +3,7 @@ package com.web.jsp.book.model.service;
 import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.web.jsp.book.model.dao.BookDao;
 import com.web.jsp.book.model.vo.Book;
@@ -59,10 +60,10 @@ con = getConnection();
 		return list;
 	}
 
-	public Book selectOne(String title) {
+	public HashMap<String,Object> selectOne(Long bno) {
 		 con = getConnection();
 	      
-	      Book b = bDao.selectOne(con,title);
+		 HashMap<String,Object> b = bDao.selectBookDetail(con,bno);
 	      
 	      close(con);
 	      return b;

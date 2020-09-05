@@ -40,7 +40,7 @@
 						for (int i = listCnt; i < listCnt + 5; i++) {
 					%>
 
-					<li class="book_img" id="best_middle<%=i + 1%>"><a onclick="book_detail()" style="cursor: pointer;">
+					<li class="book_img" id="best_middle<%=i + 1%>"><a onclick="book_detail(<%= bList.get(i).getBno() %>)" style="cursor: pointer;">
 					<img src="${pageContext.request.contextPath}/resources/images/book/<%= bList.get(i).getbImage() %>">
 							<div id="text">
 								<p class="book_rank"><%=i + 1%></p>
@@ -123,8 +123,10 @@
 			var $ul = $("<ul>");
             for(var i = index; i < index + 7; i++) {
             	if(list[i] != undefined){
-	            	var $li = $("<li>").attr({"class":"book_img_bottom","id":"best_middle" + list[i].bestSeq});
-	            	var $a = $("<a>").attr("href","#");
+	            	var $li = $("<li>").attr({"class":"book_img_bottom","id":"best_middle" + list[i].bestSeq,"data-bno":list[i].bno}).click(function(){
+	            		book_detail($(this).data("bno"));
+	            	}).css("cursor","pointer");
+	            	var $a = $("<a>").attr("href","javascript:book_detail(" + list[i].bno + ")");
 	            	var $div = $("<div>").attr("id","text");
 	            	var $img = $("<img>").attr("src",'${pageContext.request.contextPath}/resources/images/book/' + list[i].bImage);
 	            	var $rankP = $("<p>").attr("class","book_rank_bottom").text(list[i].bestSeq);
@@ -188,9 +190,8 @@
 			 } 
 	}
 	
-	function book_detail(){
-        var title = $('#title').text();
-        location.href="/BOOKTIFULMUSIC/bSelectOne.bo?btitle="+title;
+	function book_detail(bno){
+        location.href="/BOOKTIFULMUSIC/bSelectOne.bo?bno="+bno;
      }
 	</script>
 </body>
