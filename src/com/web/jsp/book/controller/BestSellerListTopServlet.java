@@ -1,13 +1,14 @@
-package com.web.jsp.bestSellerList.controller;
+package com.web.jsp.book.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.jsp.bestSellerList.model.service.BestSellerService;
+import com.web.jsp.book.model.service.BestSellerService;
 
 /**
  * Servlet implementation class BestSellerListServlet
@@ -32,7 +33,7 @@ public class BestSellerListTopServlet extends HttpServlet {
 		BestSellerService bs = new BestSellerService();
 		
 		request.setAttribute("list", bs.getBestSeller());
-		request.getRequestDispatcher("views/bestSeller/bestSellerMain.jsp").forward(request, response);
+		request.getRequestDispatcher("views/book/bestSellerMain.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.web.jsp.bestSellerList.model.dao;
+package com.web.jsp.book.model.dao;
 
 import static com.web.jsp.common.JDBCTemplate.close;
 
@@ -13,8 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.web.jsp.bestSellerList.model.vo.BestSeller;
-import com.web.jsp.book.model.vo.Book;
+import com.web.jsp.book.model.vo.BestSeller;
 
 public class BestSellerDao {
 

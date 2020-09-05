@@ -1,13 +1,13 @@
-package com.web.jsp.bestSellerList.model.service;
+package com.web.jsp.book.model.service;
 
-import static com.web.jsp.common.JDBCTemplate.*;
+import static com.web.jsp.common.JDBCTemplate.close;
+import static com.web.jsp.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.web.jsp.bestSellerList.model.dao.BestSellerDao;
-import com.web.jsp.bestSellerList.model.vo.BestSeller;
-import com.web.jsp.book.model.vo.Book;
+import com.web.jsp.book.model.dao.BestSellerDao;
+import com.web.jsp.book.model.vo.BestSeller;
 
 public class BestSellerService {
 	

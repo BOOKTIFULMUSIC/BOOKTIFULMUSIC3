@@ -1,4 +1,4 @@
-package com.web.jsp.bestSellerList.controller;
+package com.web.jsp.book.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.web.jsp.bestSellerList.model.service.BestSellerService;
-import com.web.jsp.bestSellerList.model.vo.BestSeller;
+import com.web.jsp.book.model.service.BestSellerService;
+import com.web.jsp.book.model.vo.BestSeller;
 import com.web.jsp.book.model.vo.PageInfo;
 
 /**
