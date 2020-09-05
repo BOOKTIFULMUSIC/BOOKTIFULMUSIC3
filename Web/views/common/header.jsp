@@ -88,7 +88,9 @@
 	</div>
 	<script>
 		function all_search(){
-			location.href="/BOOKTIFULMUSIC/allsearchList.do";
+			var keyword = document.getElementById('searchbar').value;
+			
+			location.href="/BOOKTIFULMUSIC/allsearchList.do?keyword="+keyword;
 		}
 		function goHome(){
 			location.href="/BOOKTIFULMUSIC/index.jsp";
