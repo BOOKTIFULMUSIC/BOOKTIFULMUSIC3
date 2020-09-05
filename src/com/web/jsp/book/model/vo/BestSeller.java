@@ -1,4 +1,4 @@
-package com.web.jsp.bestSellerList.model.vo;
+package com.web.jsp.book.model.vo;
 
 import java.io.Serializable;
 

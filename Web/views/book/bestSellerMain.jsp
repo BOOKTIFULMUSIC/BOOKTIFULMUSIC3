@@ -1,6 +1,6 @@
-<%@page import="com.web.jsp.bestSellerList.model.vo.BestSeller"%>
+<%@page import="com.web.jsp.book.model.vo.BestSeller"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.web.jsp.bestSellerList.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.web.jsp.book.model.vo.*"%>
 <%@page import="java.util.ArrayList"%>
 <%
 	ArrayList<BestSeller> bList = (ArrayList<BestSeller>) request.getAttribute("list");
@@ -41,7 +41,7 @@
 					%>
 
 					<li class="book_img" id="best_middle<%=i + 1%>"><a onclick="book_detail()" style="cursor: pointer;">
-					<img src="${pageContext.request.contextPath}<%= bList.get(i).getbImage() %>">
+					<img src="${pageContext.request.contextPath}/resources/images/book/<%= bList.get(i).getbImage() %>">
 							<div id="text">
 								<p class="book_rank"><%=i + 1%></p>
 								<P class="book_name" id="title"><%=bList.get(i).getBtitle()%></P>
@@ -126,7 +126,7 @@
 	            	var $li = $("<li>").attr({"class":"book_img_bottom","id":"best_middle" + list[i].bestSeq});
 	            	var $a = $("<a>").attr("href","#");
 	            	var $div = $("<div>").attr("id","text");
-	            	var $img = $("<img>").attr("src",'${pageContext.request.contextPath}' + list[i].bImage);
+	            	var $img = $("<img>").attr("src",'${pageContext.request.contextPath}/resources/images/book/' + list[i].bImage);
 	            	var $rankP = $("<p>").attr("class","book_rank_bottom").text(list[i].bestSeq);
 	            	var $nameP = $("<p>").attr("class","book_name_bottom").text((list[i].btitle.length > 20)?list[i].btitle.substr(0,15) + "...":list[i].btitle);
 	            	$div.append($rankP).append($nameP);
