@@ -109,12 +109,15 @@ public class AllSearchServlet extends HttpServlet {
 		String page = "";
 		
 		if(!bList.isEmpty() || !mList.isEmpty()) {
-			page = "views/common/allSearchList.jsp";
+			page = "views/allSearch/allSearchList.jsp";
 			request.setAttribute("bList", bList);
 			request.setAttribute("mList", mList);
 			
 			PageInfo bpi = new PageInfo(bcurrentPage,bListCount,blimit,bmaxPage,bstartPage,bendPage);
 			PageInfo mpi = new PageInfo(mcurrentPage,mListCount,mlimit,mmaxPage,mstartPage,mendPage);
+			request.setAttribute("bpi", bpi);
+			request.setAttribute("mpi", mpi);
+			request.setAttribute("keyword", keyword);
 			
 		}else {
 			page = "views/common/errorPage.jsp";

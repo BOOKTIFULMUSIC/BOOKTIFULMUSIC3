@@ -1,0 +1,250 @@
+body{margin:0;}
+
+.content{
+    width: 1120px;
+    margin: auto;
+    margin-bottom: 100px;
+    position: relative;
+}
+#page_logo{ color: rgb(227, 233, 255); margin-top:120px; margin-bottom: 60px; text-align: center; font-size: 40px;}
+#greeting{ color: rgb(150, 150, 150); text-align: center; font-size: 20px; margin-bottom: 60px;}
+.section{
+    width: 1120px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    position: relative;
+}
+section input{ border: 0; border-bottom: 1px solid #ccc; width: 300px; height: 45px;}
+
+#search_box1{display: none;}
+#search_box2{display: none;}
+
+#tab1 p {
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+#tab2 p {
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.result{
+    width: 550px;
+    height: 50px;
+    display: inline-block;
+    margin: 0 0 -1px;
+    font-weight: 600;
+    text-align: center;
+    color:black;
+    border: 1px solid transparent;
+    margin-bottom: 50px;
+}
+
+.search_menu> input { display: none; }
+.search_menu{ width: 1120px; margin: auto;}
+
+.search_menu label p{ font-size: 24px; margin-top: 9px;}
+.search_menu label p:hover{color: #555;}
+.search_menu label:hover {
+        cursor: pointer;}
+
+.search_menu>input:checked + label {
+    color: black;
+    background:  rgb(227, 233, 255);
+}
+
+#tab1:checked ~ #search_box1{ display: block;},#search_box2{display: none;}
+#tab2:checked ~ #search_box2{ display: block;},#search_box1{display: none;}
+
+
+
+
+#box1{ width: 1100px; margin: auto; margin-top: 60px;}
+#box1 pre{ font-weight: 600; font-size: 12px;}
+#box2{ width: 1100px; margin: auto; margin-top: 60px;}
+#box2 pre{ font-weight: 600; font-size: 12px;}
+
+
+#mini-footer{width: 100%; height: 80px; margin-top: 60px;}
+#footer_menu{ width: 400px; height: 40px; padding: 0; margin: auto;}
+#footer_menu>li{ float: left; list-style-type: none; text-align: center;}
+#footer_menu li a{ text-decoration: none; color: black;}
+#mini-footer p {text-align:center ; }
+
+ul{
+    list-style-type: none;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+
+/* 도서리스트 상단 구분 */
+#bookList_info{
+    width: 100%;
+    height: 50px;
+    border-bottom: 3px solid rgb(227, 233, 255);
+}
+#bookList_info th{
+    margin: auto;
+}
+
+#bookList_info th:nth-child(1){
+    width: 5%;
+    height: 100%;
+}
+#bookList_info th:nth-child(2){
+    width: 65%;
+    height: 100%;
+}
+#bookList_info th:nth-child(3){
+    width: 10%;
+    height: 100%;
+}
+#bookList_info th:nth-child(4){
+    width: 10%;
+    height: 100%;
+}
+#bookList_info th:nth-child(5){
+    width: 10%;
+    height: 100%;
+}
+
+/* 도서검색 리스트 */
+
+#search_box1 img{
+    width: 150px;
+    height: 150px;
+    margin-top: 4px;
+    margin-left: 10px;
+}
+#bookList label{
+    cursor: pointer;
+}
+
+#bookList td{
+    border-bottom: 3px solid rgb(227, 233, 255);
+    margin-top: 100px;
+    padding: 10px
+}
+
+#bookList td:nth-child(1){
+    text-align: center;
+    width: 5%;
+    height: 98%;
+    
+}
+#bookList td:nth-child(2){
+    width: 5%;
+    height: 98%;
+    
+}
+#bookList td:nth-child(3){
+    width: 55%;
+    height: 98%;
+}
+#bookList td:nth-child(4){
+    width: 10%;
+    height: 98%;
+    text-align: center;
+}
+#bookList td:nth-child(5){
+    width: 10%;
+    height: 100%;
+    text-align: center;
+}
+#bookList td:nth-child(6){
+    width: 10%;
+    height: 100%;
+    text-align: center;
+}
+
+
+
+ /* 음원리스트 상단 구분 */
+#musicList_info{
+    width: 100%;
+    height: 50px;
+    border-bottom: 3px solid rgb(227, 233, 255);
+}
+#musicList_info th{
+    margin: auto;
+}
+
+#musicList_info th:nth-child(1){
+    width: 5%;
+    height: 100%;
+}
+#musicList_info th:nth-child(2){
+    width: 65%;
+    height: 100%;
+}
+#musicList_info th:nth-child(3){
+    width: 10%;
+    height: 100%;
+}
+#musicList_info th:nth-child(4){
+    width: 10%;
+    height: 100%;
+}
+#musicList_info th:nth-child(5){
+    width: 10%;
+    height: 100%;
+}
+
+/* 음원검색 리스트 */
+#search_box2 img{
+    width: 80px;
+    height: 80px;
+    margin-top: 4px;
+    margin-left: 10px;
+}
+
+#musicList label{
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#musicList td{
+    border-bottom: 3px solid rgb(227, 233, 255);
+}
+
+#musicList td:nth-child(1){
+    text-align: center;
+    width: 5%;
+    height: 98%;
+    
+}
+#musicList td:nth-child(2){
+    width: 5%;
+    height: 98%;
+    
+}
+#musicList td:nth-child(3){
+    width: 60%;
+    height: 98%;
+}
+#musicList td:nth-child(4){
+    width: 10%;
+    height: 98%;
+    text-align: center;
+}
+#musicList td:nth-child(5){
+    width: 10%;
+    height: 100%;
+    text-align: center;
+}
+#musicList td:nth-child(6){
+    width: 10%;
+    height: 100%;
+    text-align: center;
+}
+
+#heart{ color:red;}
+
+
