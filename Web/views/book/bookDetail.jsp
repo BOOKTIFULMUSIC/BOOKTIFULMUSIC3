@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.web.jsp.bestSellerList.model.vo.*" import="com.web.jsp.book.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.web.jsp.book.model.vo.*" import="com.web.jsp.book.model.vo.*"%>
     <% Book b = (Book)request.getAttribute("b"); %>
 <!DOCTYPE html>
 <html lang="ko">
