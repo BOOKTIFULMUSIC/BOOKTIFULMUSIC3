@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.jsp.allSearch.model.service.AllSearchService;
 import com.web.jsp.allSearch.model.vo.AllSearch;
+import com.web.jsp.book.model.vo.PageInfo;
 
 /**
  * Servlet implementation class AllSearchServlet
@@ -54,12 +55,12 @@ public class AllSearchServlet extends HttpServlet {
 			bcurrentPage = Integer.parseInt(request.getParameter("bcurrentPage"));
 		}
 		
-		int blistCount = ass.getSearchbListCount(keyword);
+		int bListCount = ass.getSearchbListCount(keyword);
 		
 		// 총 253개, 페이지 수--> 26개
 		// 만약 전체 게시글 수가 13개
 		// 페이지는 1,2
-		bmaxPage = (int)((double)blistCount/blimit+0.9);
+		bmaxPage = (int)((double)bListCount/blimit+0.9);
 		
 		// 시작 페이지와 마지막 페이지 계산
 		// 1~10
@@ -86,12 +87,12 @@ public class AllSearchServlet extends HttpServlet {
 			mcurrentPage = Integer.parseInt(request.getParameter("mcurrentPage"));
 		}
 		
-		int mlistCount = ass.getSearchmListCount(keyword);
+		int mListCount = ass.getSearchmListCount(keyword);
 		
 		// 총 253개, 페이지 수--> 26개
 		// 만약 전체 게시글 수가 13개
 		// 페이지는 1,2
-		mmaxPage = (int)((double)mlistCount/mlimit+0.9);
+		mmaxPage = (int)((double)mListCount/mlimit+0.9);
 		
 		// 시작 페이지와 마지막 페이지 계산
 		// 1~10
@@ -102,6 +103,24 @@ public class AllSearchServlet extends HttpServlet {
 			mendPage = mmaxPage;
 		}
 		
+		bList = ass.searchbList(keyword, bcurrentPage, blimit);
+		mList = ass.searchmList(keyword, mcurrentPage, mlimit);
+		
+		String page = "";
+		
+		if(!bList.isEmpty() || !mList.isEmpty()) {
+			page = "views/common/allSearchList.jsp";
+			request.setAttribute("bList", bList);
+			request.setAttribute("mList", mList);
+			
+			PageInfo bpi = new PageInfo(bcurrentPage,bListCount,blimit,bmaxPage,bstartPage,bendPage);
+			PageInfo mpi = new PageInfo(mcurrentPage,mListCount,mlimit,mmaxPage,mstartPage,mendPage);
+			
+		}else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "검색결과가 없습니다");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
