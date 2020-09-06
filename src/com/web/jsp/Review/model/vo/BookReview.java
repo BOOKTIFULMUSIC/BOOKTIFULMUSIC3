@@ -12,20 +12,28 @@ public class BookReview implements Serializable{
 	
 	private int bRno;             // 북리뷰번호
 	private String userId;        // 유저아이디
-	private int bookNo;           // 북넘버
+	private Long bookNo;           // 북넘버
 	private String bookReview;    // 북리뷰
 	private Date brDate;           // 북리뷰 작성일
 	
 	public BookReview() {}
+	
+	
+	public BookReview(int bRno, String userId, String bookReview) {
+		super();
+		this.bRno = bRno;
+		this.userId = userId;
+		this.bookReview = bookReview;
+	}
 
-	public BookReview(String userId, int bookNo, String bookReview) {
+	public BookReview(String userId, Long bookNo, String bookReview) {
 		super();
 		this.userId = userId;
 		this.bookNo = bookNo;
 		this.bookReview = bookReview;
 	}
 
-	public BookReview(int bRno, String userId, int bookNo, String bookReview, Date brDate) {
+	public BookReview(int bRno, String userId, Long bookNo, String bookReview, Date brDate) {
 		super();
 		this.bRno = bRno;
 		this.userId = userId;
@@ -50,11 +58,11 @@ public class BookReview implements Serializable{
 		this.userId = userId;
 	}
 
-	public int getBookNo() {
+	public Long getBookNo() {
 		return bookNo;
 	}
 
-	public void setBookNo(int bookNo) {
+	public void setBookNo(Long bookNo) {
 		this.bookNo = bookNo;
 	}
 

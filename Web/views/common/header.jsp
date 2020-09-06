@@ -36,7 +36,7 @@
             </div>
         <% } else { %>
         	<div id="user_info">
-                <p>∂∇∂/ <b><%= m.getUserId() %></b>님 반갑습니다.</p>
+                <p>∂∇∂/ <b id="userIdchk"><%= m.getUserId() %></b>님 반갑습니다.</p>
                 <ul id="user_menu">
                     <li><a onclick="goMyPage1()">마이페이지</a></li>
                     <li><a onclick="logout()">로그아웃</a></li>
@@ -88,7 +88,9 @@
 	</div>
 	<script>
 		function all_search(){
-			location.href="/BOOKTIFULMUSIC/allsearchList.do";
+			var keyword = document.getElementById('searchbar').value;
+			
+			location.href="/BOOKTIFULMUSIC/allsearchList.do?keyword="+keyword;
 		}
 		function goHome(){
 			location.href="/BOOKTIFULMUSIC/index.jsp";

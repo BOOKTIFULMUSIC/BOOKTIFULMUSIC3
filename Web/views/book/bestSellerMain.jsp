@@ -1,6 +1,6 @@
-<%@page import="com.web.jsp.bestSellerList.model.vo.BestSeller"%>
+<%@page import="com.web.jsp.book.model.vo.BestSeller"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.web.jsp.bestSellerList.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.web.jsp.book.model.vo.*"%>
 <%@page import="java.util.ArrayList"%>
 <%
 	ArrayList<BestSeller> bList = (ArrayList<BestSeller>) request.getAttribute("list");
@@ -40,8 +40,8 @@
 						for (int i = listCnt; i < listCnt + 5; i++) {
 					%>
 
-					<li class="book_img" id="best_middle<%=i + 1%>"><a onclick="book_detail()" style="cursor: pointer;">
-					<img src="${pageContext.request.contextPath}<%= bList.get(i).getbImage() %>">
+					<li class="book_img" id="best_middle<%=i + 1%>"><a onclick="book_detail(<%= bList.get(i).getBno() %>)" style="cursor: pointer;">
+					<img src="${pageContext.request.contextPath}/resources/images/book/<%= bList.get(i).getbImage() %>">
 							<div id="text">
 								<p class="book_rank"><%=i + 1%></p>
 								<P class="book_name" id="title"><%=bList.get(i).getBtitle()%></P>
@@ -123,10 +123,12 @@
 			var $ul = $("<ul>");
             for(var i = index; i < index + 7; i++) {
             	if(list[i] != undefined){
-	            	var $li = $("<li>").attr({"class":"book_img_bottom","id":"best_middle" + list[i].bestSeq});
-	            	var $a = $("<a>").attr("href","#");
+	            	var $li = $("<li>").attr({"class":"book_img_bottom","id":"best_middle" + list[i].bestSeq,"data-bno":list[i].bno}).click(function(){
+	            		book_detail($(this).data("bno"));
+	            	}).css("cursor","pointer");
+	            	var $a = $("<a>").attr("href","javascript:book_detail(" + list[i].bno + ")");
 	            	var $div = $("<div>").attr("id","text");
-	            	var $img = $("<img>").attr("src",'${pageContext.request.contextPath}' + list[i].bImage);
+	            	var $img = $("<img>").attr("src",'${pageContext.request.contextPath}/resources/images/book/' + list[i].bImage);
 	            	var $rankP = $("<p>").attr("class","book_rank_bottom").text(list[i].bestSeq);
 	            	var $nameP = $("<p>").attr("class","book_name_bottom").text((list[i].btitle.length > 20)?list[i].btitle.substr(0,15) + "...":list[i].btitle);
 	            	$div.append($rankP).append($nameP);
@@ -163,17 +165,17 @@
 		
 		   	   
 			if(currentPage <= 1) { 
-				$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<img>").attr("src","/resource/images/book/btn_L.gif"))).attr("disabled",true).css("cursor","pointer"));
+				$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<a>").text("<"))).attr("disabled",true).css("cursor","pointer"));
 			}else{ 
 				var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + (currentPage - 1) + ")"});
-				$li.append($("<a>").append($("<img>").attr("src","/resource/images/book/btn_L.gif"))).css("cursor","pointer");
+				$li.append($("<a>").append($("<a>").text("<"))).css("cursor","pointer");
 				$pagination.append($li);
 						
 			 } 
 			/*  for(var p= startPage; p <= endPage; p++){ */
 				 for (var p= startPage; p <= maxPage; p++) {
 					if (p == currentPage) {
-						$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").text(p).css("color","red")).attr("disabled",true));
+						$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").text(p).css("color","rgb(105,140,255)")).attr("disabled",true));
 			 		} else { 
 				 		var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + p + ")"}).append($("<a>").text(p)).css({"cursor":"pointer"});
 						 $pagination.append($li);
@@ -181,16 +183,15 @@
 				 }	
 			
 			 if(currentPage >= maxPage){ 
-				 $pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<img>").attr("src","resource/images/book/btn_R.gif"))).attr("disabled",true).css("cursor","pointer"));					
+				 $pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<a>").text(">"))).attr("disabled",true).css("cursor","pointer"));					
 			 } else {
-				 var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + (currentPage + 1) + ")"}).append($("<a>").append($("<img>").attr("src","resource/images/book/btn_R.gif"))).css("cursor","pointer");
+				 var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + (currentPage + 1) + ")"}).append($("<a>").append($("<a>").text(">"))).css("cursor","pointer");
 				 $pagination.append($li);
 			 } 
 	}
 	
-	function book_detail(){
-        var title = $('#title').text();
-        location.href="/BOOKTIFULMUSIC/bSelectOne.bo?btitle="+title;
+	function book_detail(bno){
+        location.href="/BOOKTIFULMUSIC/bSelectOne.bo?bno="+bno;
      }
 	</script>
 </body>

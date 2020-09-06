@@ -1,4 +1,4 @@
-package com.web.jsp.bestSellerList.controller;
+package com.web.jsp.book.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,32 +11,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.web.jsp.bestSellerList.model.service.BestSellerService;
-import com.web.jsp.bestSellerList.model.vo.BestSeller;
+import com.web.jsp.Review.model.vo.BookReview;
+import com.web.jsp.book.model.service.BookService;
 import com.web.jsp.book.model.vo.PageInfo;
 
 /**
- * Servlet implementation class BestSellerListServletBottom
+ * Servlet implementation class SelectReviewServlet
  */
-@WebServlet("/bTop21.bo")
-public class BestSellerListBottomServlet extends HttpServlet {
+@WebServlet("/selectReview.bo")
+public class SelectReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public BestSellerListBottomServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectReviewServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=UTF-8");
-		ArrayList<BestSeller> list = null;
-		BestSellerService bs = new BestSellerService();
+		ArrayList<BookReview> list = null;
+		BookService bs = new BookService();
 		HashMap<String,Object> resultMap = null;
 		int startPage;
 		int endPage;
@@ -45,13 +45,15 @@ public class BestSellerListBottomServlet extends HttpServlet {
 		int limit;
 		currentPage = 1;
 		int buttonCount = 5;
-		limit = 21;
-
+		limit = 5;
+		
+		Long bno = Long.parseLong(request.getParameter("bno"));
+		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-
-		int listCount = bs.getListCount();
+		
+		int listCount = bs.getReviewCount(bno);
 
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = ((int)((double)currentPage/buttonCount+0.9)-1)*buttonCount+1;
@@ -60,8 +62,8 @@ public class BestSellerListBottomServlet extends HttpServlet {
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
-
-		list = bs.selectList(currentPage,limit);
+		
+		list = bs.selectReview(currentPage,limit,bno);
 
 		String page="";
 		if(list!=null) {
@@ -69,6 +71,7 @@ public class BestSellerListBottomServlet extends HttpServlet {
 			endPage = startPage+limit-1;
 			PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage,buttonCount);
 			resultMap = new HashMap<String,Object>();
+			resultMap.put("status","success");
 			resultMap.put("pi", pi);
 			resultMap.put("list", list);
 		} else {
@@ -81,7 +84,6 @@ public class BestSellerListBottomServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

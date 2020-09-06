@@ -1,13 +1,17 @@
 package com.web.jsp.book.model.service;
 
-import java.sql.Array;
+import static com.web.jsp.common.JDBCTemplate.close;
+import static com.web.jsp.common.JDBCTemplate.commit;
+import static com.web.jsp.common.JDBCTemplate.getConnection;
+import static com.web.jsp.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.web.jsp.Review.model.vo.BookReview;
 import com.web.jsp.book.model.dao.BookDao;
 import com.web.jsp.book.model.vo.Book;
-
-import static com.web.jsp.common.JDBCTemplate.*;
 
 public class BookService {
 	
@@ -59,13 +63,54 @@ con = getConnection();
 		return list;
 	}
 
-	public Book selectOne(String title) {
+	public HashMap<String,Object> selectOne(Long bno) {
 		 con = getConnection();
 	      
-	      Book b = bDao.selectOne(con,title);
+		 HashMap<String,Object> b = bDao.selectBookDetail(con,bno);
 	      
 	      close(con);
 	      return b;
+	}
+
+	public int insertReview(HashMap<String,Object> hmap) {
+		con = getConnection();
+	    int reviewCnt = 0;
+	    reviewCnt = bDao.insertReview(con,hmap);
+	      
+	    if(reviewCnt < 0) { 
+	    	rollback(con); 
+	    } else {
+	    	commit(con);
+	    }
+	    
+	    close(con);
+		return reviewCnt;
+	}
+	
+	public ArrayList<BookReview> selectReview(int currentPage, int limit, Long bno) {
+		con = getConnection();
+		ArrayList<BookReview> bList = bDao.selectReview(con,currentPage,limit,bno);
+		close(con);
+		return bList;
+	}
+
+	public int getReviewCount(Long bno) {
+		con = getConnection();
+		int listCount = bDao.getReviewCount(con,bno);
+		close(con);
+		return listCount;
+	}
+
+	public int updateReview(int rno, String rText) {
+		con = getConnection();
+		int updatCount = bDao.updateReview(con,rno,rText);
+		if(!(updatCount > 0)){
+			rollback(con);
+		}else{
+			commit(con);
+		}
+		close(con);
+		return updatCount;
 	}
 
 }

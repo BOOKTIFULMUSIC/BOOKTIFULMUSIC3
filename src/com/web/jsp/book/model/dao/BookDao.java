@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Properties;
 
+import com.web.jsp.Review.model.vo.BookReview;
+import com.web.jsp.book.model.vo.BestSeller;
 import com.web.jsp.book.model.vo.Book;
 public class BookDao {
 	
@@ -292,5 +294,135 @@ public class BookDao {
 
 	      return b;
 	   }
+	
+	public HashMap<String,Object> selectBookDetail(Connection con, Long bno) {
+		  HashMap<String, Object> bookMap = null;
+		
+		
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
 
+	      String sql = prop.getProperty("selectBookDetail");
+
+	      try{
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setLong(1, bno);
+
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()){
+	        	bookMap = new HashMap<String, Object>();
+	        	bookMap.put("BNO", rset.getLong("BNO"));
+	        	bookMap.put("BTITLE", rset.getString("BTITLE"));
+	        	bookMap.put("PUBLISHER", rset.getString("PUBLISHER"));
+	        	bookMap.put("WRITERDATE", rset.getString("WRITERDATE"));
+	        	bookMap.put("BGENRE", rset.getString("BGENRE"));
+	        	bookMap.put("PRICE", rset.getInt("PRICE"));
+	        	bookMap.put("BLIKECOUNT", rset.getInt("BLIKECOUNT"));
+	        	bookMap.put("BREVIEWCOUNT", rset.getInt("BREVIEWCOUNT"));
+	        	bookMap.put("BIMAGE", rset.getString("BIMAGE"));
+	        	bookMap.put("BSTORY", rset.getString("BSTORY"));
+	        	bookMap.put("AUINFO", rset.getString("AUINFO"));
+	        	bookMap.put("AUTHORNAME", rset.getString("AUTHORNAME"));
+	         }
+
+
+	      }catch(SQLException e){
+	         e.printStackTrace();
+	      }finally{
+	         close(rset);
+	         close(pstmt);
+	      }
+
+	      return bookMap;
+	   }
+	
+	public int insertReview(Connection con, HashMap<String, Object> hmap) {
+		
+		PreparedStatement pstmt = null;
+	      int rCount = 0;
+
+	      String sql = prop.getProperty("insertReview");
+
+	      try{
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, (String) hmap.get("USERID"));
+	         pstmt.setLong(2, Long.parseLong(hmap.get("BNO").toString()));
+	         pstmt.setString(3, (String) hmap.get("BOOK_REVIEW"));
+	         
+	         rCount = pstmt.executeUpdate();
+		
+	      }catch(SQLException e){
+	  		e.printStackTrace();
+	      }finally{
+	    	  close(pstmt);
+	      }	
+	      return rCount;
+	}
+	public ArrayList<BookReview> selectReview(Connection con, int currentPage, int limit, Long bno) {
+			
+			ArrayList<BookReview> list = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectReview");
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+				int endRow = startRow + limit -1; // 30
+				pstmt.setLong(1, bno);
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<BookReview>();
+				
+				while(rset.next()) {
+					
+					int rno = rset.getInt("B_RNO");
+					String userID = rset.getString("USERID");
+					String bookReview = rset.getString("BOOK_REVIEW");
+					
+					list.add(new BookReview(rno,userID,bookReview));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+	}
+	public int getReviewCount(Connection con, Long bno) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getReviewCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	public int updateReview(Connection con, int rno, String rText) {
+		
+		
+		return 0;
+	}
 }
