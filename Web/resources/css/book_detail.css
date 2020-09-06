@@ -206,7 +206,6 @@ li>#re{
 #reviews #add{
     width: 100%;
     margin: auto;
-    height: 400px;
     overflow:scroll;
     overflow:auto;
     overflow-x: hidden;
@@ -219,13 +218,11 @@ li>#re{
     padding:0;
     margin: 20px 30px 20px 30px;
     border-bottom: 1px solid #ccc;
-
 }
 #reviews #add ul li{
     list-style: none;
     float: left;
     line-height: 28px;
-   
 }
 #reviews #add ul li:nth-child(1){
     width: 10%;
@@ -277,4 +274,37 @@ li>#re{
     border: 0;
     background: rgb(227, 233, 255);
     font-size: 20px;
+}
+
+/*검색+페이지이동*/
+#total {
+	margin: auto;
+	height: 100px;
+}
+
+/*페이지 이동*/
+#numberList {
+	width: 210px;
+	height: 30px;
+	margin: auto;
+}
+
+#numberList>ul {
+	padding: 0;
+}
+
+#numberList a {
+	text-decoration: none;
+	color: black;
+}
+
+.numberList_page {
+	width: 30px;
+	height: 30px;
+	list-style-type: none;
+	position: relative;
+	float: left;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 800;
 }

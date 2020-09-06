@@ -165,17 +165,17 @@
 		
 		   	   
 			if(currentPage <= 1) { 
-				$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<img>").attr("src","/resource/images/book/btn_L.gif"))).attr("disabled",true).css("cursor","pointer"));
+				$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<a>").text("<"))).attr("disabled",true).css("cursor","pointer"));
 			}else{ 
 				var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + (currentPage - 1) + ")"});
-				$li.append($("<a>").append($("<img>").attr("src","/resource/images/book/btn_L.gif"))).css("cursor","pointer");
+				$li.append($("<a>").append($("<a>").text("<"))).css("cursor","pointer");
 				$pagination.append($li);
 						
 			 } 
 			/*  for(var p= startPage; p <= endPage; p++){ */
 				 for (var p= startPage; p <= maxPage; p++) {
 					if (p == currentPage) {
-						$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").text(p).css("color","red")).attr("disabled",true));
+						$pagination.append($("<li>").attr("class","numberList_page").append($("<a>").text(p).css("color","rgb(105,140,255)")).attr("disabled",true));
 			 		} else { 
 				 		var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + p + ")"}).append($("<a>").text(p)).css({"cursor":"pointer"});
 						 $pagination.append($li);
@@ -183,9 +183,9 @@
 				 }	
 			
 			 if(currentPage >= maxPage){ 
-				 $pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<img>").attr("src","resource/images/book/btn_R.gif"))).attr("disabled",true).css("cursor","pointer"));					
+				 $pagination.append($("<li>").attr("class","numberList_page").append($("<a>").append($("<a>").text(">"))).attr("disabled",true).css("cursor","pointer"));					
 			 } else {
-				 var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + (currentPage + 1) + ")"}).append($("<a>").append($("<img>").attr("src","resource/images/book/btn_R.gif"))).css("cursor","pointer");
+				 var $li = $("<li>").attr({"class":"numberList_page","onclick":"viewMessage(" + (currentPage + 1) + ")"}).append($("<a>").append($("<a>").text(">"))).css("cursor","pointer");
 				 $pagination.append($li);
 			 } 
 	}

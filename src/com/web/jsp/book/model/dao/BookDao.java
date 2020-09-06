@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.web.jsp.Review.model.vo.BookReview;
+import com.web.jsp.book.model.vo.BestSeller;
 import com.web.jsp.book.model.vo.Book;
 public class BookDao {
 	
@@ -335,5 +336,93 @@ public class BookDao {
 
 	      return bookMap;
 	   }
+	
+	public int insertReview(Connection con, HashMap<String, Object> hmap) {
+		
+		PreparedStatement pstmt = null;
+	      int rCount = 0;
 
+	      String sql = prop.getProperty("insertReview");
+
+	      try{
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, (String) hmap.get("USERID"));
+	         pstmt.setLong(2, Long.parseLong(hmap.get("BNO").toString()));
+	         pstmt.setString(3, (String) hmap.get("BOOK_REVIEW"));
+	         
+	         rCount = pstmt.executeUpdate();
+		
+	      }catch(SQLException e){
+	  		e.printStackTrace();
+	      }finally{
+	    	  close(pstmt);
+	      }	
+	      return rCount;
+	}
+	public ArrayList<BookReview> selectReview(Connection con, int currentPage, int limit, Long bno) {
+			
+			ArrayList<BookReview> list = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectReview");
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				int startRow = (currentPage-1)*limit +1; // 3-1*10 21
+				int endRow = startRow + limit -1; // 30
+				pstmt.setLong(1, bno);
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<BookReview>();
+				
+				while(rset.next()) {
+					
+					int rno = rset.getInt("B_RNO");
+					String userID = rset.getString("USERID");
+					String bookReview = rset.getString("BOOK_REVIEW");
+					
+					list.add(new BookReview(rno,userID,bookReview));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+	}
+	public int getReviewCount(Connection con, Long bno) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getReviewCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	public int updateReview(Connection con, int rno, String rText) {
+		
+		
+		return 0;
+	}
 }
