@@ -282,6 +282,72 @@ public class MemberDao {
 
 	}
 
+	public Member findId(Connection con, Member m) throws MemberException {
+		
+		Member result = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findId");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getEmail());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+			{
+				result = new Member();
+
+				result.setUserName(m.getUserName());
+				result.setEmail(m.getEmail());
+
+				result.setUserId(rset.getString("USERID"));
+			}
+		}catch(Exception e) {
+			throw new MemberException(e.getMessage());
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public Member findPwd(Connection con, Member m) throws MemberException {
+		
+		Member result = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("findPwd");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getUserId());
+			pstmt.setString(3, m.getEmail());
+			rset = pstmt.executeQuery();
+			
+
+			if(rset.next())
+			{
+				result = new Member();
+
+				result.setUserName(m.getUserName());
+				result.setUserId(m.getUserId());
+				result.setEmail(m.getEmail());
+
+				result.setUserPwd(rset.getString("USERPWD"));
+
+			}
+		}catch(Exception e) {
+			throw new MemberException(e.getMessage());
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
 
 

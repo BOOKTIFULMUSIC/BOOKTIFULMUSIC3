@@ -1,0 +1,50 @@
+.content-wrapper{ width: 100%; height: 1200px; margin: auto; box-sizing: border-box;}
+        #content{ width: 1130px; margin: auto;}
+        #page_logo{ color: rgb(227, 233, 255); margin-top:145px; text-align: center; font-size: 40px;}
+
+        section { display: none; width: 1120px; margin:auto; border-top: 1px solid #ccc;}
+        section p {
+            margin: 0 0 20px;
+            line-height: 1.5;}
+        section input{ border: 0; border-bottom: 1px solid #ccc; width: 300px; height: 45px;}
+        #select_email{ width: 300px; height: 45px;}
+        
+        /*라디오버튼 숨김*/
+        .tab-menu> input { display: none; }
+        label {
+            width: 560px;
+            height: 50px;
+            display: inline-block;
+            margin: 0 0 -1px;
+            font-weight: 600;
+            text-align: center;
+            color:black;
+            border: 1px solid transparent;
+            }
+        label p{ font-size: 24px; margin-top: 9px;}
+        label p:hover{color: #555;}
+        label:hover {
+            cursor: pointer;}
+        /*input 클릭시, label 스타일*/
+        .tab-menu>input:checked + label {
+              color: black;
+              background:  rgb(227, 233, 255);}
+
+        #tab1:checked ~ #tab-box1,
+        #tab2:checked ~ #tab-box2{ display: block;}
+
+        #box1{ width: 660px; margin: auto; margin-top: 100px;}
+        #box1 p{ font-weight: 600; font-size: 20px;}
+        #p2{ margin-top: 60px;}
+        #id_find_btn1{ width: 300px; height: 50px; background: rgb(227, 233, 255); border: 0; margin: 80px 0 0 180px; font-size: 20px; font-weight: 600; }
+
+        #box2{ width: 660px; margin: auto; margin-top: 100px;}
+        #box2 p{ font-weight: 600; font-size: 20px;}
+        #p3{ margin-top: 60px;}
+        #id_find_btn2{ width: 300px; height: 50px; background: rgb(227, 233, 255); border: 0; margin: 80px 0 0 180px; font-size: 20px; font-weight: 600;}
+    
+        #mini-footer{width: 100%; height: 80px; margin:0; padding:0;margin-top: 100px; }
+        #footer_menu{ width: 400px; height: 40px; padding: 0; margin: auto;}
+        #footer_menu>li{ float: left; list-style-type: none; text-align: center;}
+        #footer_menu li a{ text-decoration: none; color: black;}
+        #mini-footer p {text-align:center ; }

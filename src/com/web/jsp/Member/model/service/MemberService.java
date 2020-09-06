@@ -110,6 +110,35 @@ public class MemberService {
 		return result;
 	}
 
+	public Member findId(Member m) throws MemberException {
+		
+		con = getConnection();
+
+		Member result = mDao.findId(con, m);
+
+		close(con);
+		
+		if(result == null){
+			throw new MemberException("회원 이름이나 이메일이 올바르지 않습니다.");
+		}
+		return result;
+	}
+
+
+	public Member findPwd(Member m) throws MemberException {
+	
+		con = getConnection();
+
+		Member result = mDao.findPwd(con, m);
+
+		close(con);
+		
+		if(result == null) {
+			throw new MemberException("회원 이름이나 이메일이  올바르지 않습니다.");
+		}
+		return result;
+	}
+
 }
 
 
